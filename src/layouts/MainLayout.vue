@@ -1,36 +1,105 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
+    <!-- ─── Header ─────────────────────────────────────────────────────── -->
+    <q-header elevated class="glass-header">
+      <q-toolbar style="min-height: 56px; padding: 0 12px;">
         <q-btn
-          flat
-          dense
-          round
+          flat dense round
           icon="menu"
           aria-label="Menu"
+          style="color: var(--mist); opacity: 0.7;"
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+        <!-- Inline SVG Logo -->
+        <div class="row items-center q-ml-sm logo-svg-wrap">
+          <svg
+            width="38" height="38" viewBox="0 0 38 38"
+            fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="animation: logoGlow 3s ease-in-out infinite;"
+          >
+            <!-- Outer pulsing ring -->
+            <circle
+              cx="19" cy="19" r="17"
+              stroke="url(#ringGrad)" stroke-width="1.5"
+              stroke-dasharray="6 4"
+              fill="none"
+              style="animation: pulseRing 6s linear infinite; transform-origin: 19px 19px;"
+            />
+            <!-- Chat bubble base -->
+            <rect x="7" y="9" width="22" height="16" rx="5" fill="url(#bubbleGrad)" opacity="0.92"/>
+            <!-- Bubble tail -->
+            <path d="M11 25 L9 31 L17 25" fill="url(#bubbleGrad)" />
+            <!-- Dots inside bubble -->
+            <circle cx="12.5" cy="17" r="1.8" fill="#E8E4D9" opacity="0.9"/>
+            <circle cx="19"   cy="17" r="1.8" fill="#E8E4D9" opacity="0.7"/>
+            <circle cx="25.5" cy="17" r="1.8" fill="#E8E4D9" opacity="0.5"/>
+            <!-- Neural spark line -->
+            <line x1="19" y1="1" x2="19" y2="5" stroke="#2A8C8C" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <line x1="19" y1="33" x2="19" y2="37" stroke="#2A8C8C" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <line x1="1" y1="19" x2="5" y2="19" stroke="#2A8C8C" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <line x1="33" y1="19" x2="37" y2="19" stroke="#2A8C8C" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <!-- Gradient defs -->
+            <defs>
+              <linearGradient id="bubbleGrad" x1="7" y1="9" x2="29" y2="31" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#C0394B"/>
+                <stop offset="100%" stop-color="#a02030"/>
+              </linearGradient>
+              <linearGradient id="ringGrad" x1="0" y1="0" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#2A8C8C"/>
+                <stop offset="50%" stop-color="#C0394B"/>
+                <stop offset="100%" stop-color="#2A8C8C"/>
+              </linearGradient>
+            </defs>
+          </svg>
 
-        <div>Quasar v{{ $q.version }}</div>
+          <q-toolbar-title class="logo-title q-ml-sm q-pa-none">
+            MB<span class="logo-accent">RP</span>
+          </q-toolbar-title>
+        </div>
+
+        <q-space />
+
+        <q-btn
+          outline
+          icon="fab fa-google"
+          label="Sign in"
+          class="glass-pill-btn"
+          unelevated
+          no-caps
+        />
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+    <!-- ─── Sidebar ────────────────────────────────────────────────────── -->
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="glass-sidebar">
+      <!-- Sidebar brand -->
+      <div class="sidebar-header row items-center justify-between">
+        <span class="sidebar-brand">MBRP AI</span>
+        <span class="sidebar-version">v1.0</span>
+      </div>
 
+      <!-- New Chat button -->
+      <div class="q-px-sm q-pt-sm">
+        <q-btn
+          flat no-caps label="+ New Chat"
+          class="full-width"
+          style="
+            border-radius: 10px;
+            border: 1px solid rgba(42,140,140,0.3);
+            color: var(--mist);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 10px;
+            transition: all 0.25s ease;
+          "
+        />
+      </div>
+
+      <!-- Links -->
+      <div class="sidebar-section-label">Links</div>
+      <q-list>
         <EssentialLink
           v-for="link in linksList"
           :key="link.title"
@@ -39,6 +108,7 @@
       </q-list>
     </q-drawer>
 
+    <!-- ─── Content ───────────────────────────────────────────────────── -->
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -51,46 +121,28 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'MBRP LinkedIn',
+    caption: 'Official Page',
+    icon: 'business',
+    link: 'https://www.linkedin.com/company/microbial-biotechnology-unit-of-the-national-institute-of-fundamental-studies'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: 'SciSpark Research',
+    caption: 'SciSpark Paper',
+    icon: 'science',
+    link: 'https://www.researchgate.net/publication/404314129_SciSpark'
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
+    title: 'Community Discord',
+    caption: 'Join Server',
     icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    link: 'https://discord.gg/7evys9XMc'
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+    title: 'RajGithub',
+    caption: 'Developer',
+    icon: 'code',
+    link: 'https://github.com/nilupulrox'
   }
 ]
 

@@ -1,1 +1,419 @@
-// app global css
+// ─── Google Fonts ──────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700;800&family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600;700&display=swap');
+
+// ─── Color Tokens ──────────────────────────────────────────────────────────
+:root {
+  --crimson:       #C0394B;
+  --crimson-dim:   rgba(192, 57, 75, 0.18);
+  --crimson-glow:  rgba(192, 57, 75, 0.45);
+  --teal:          #2A8C8C;
+  --teal-dim:      rgba(42, 140, 140, 0.15);
+  --teal-glow:     rgba(42, 140, 140, 0.4);
+  --mist:          #A8D8D8;
+  --ivory:         #E8E4D9;
+  --ocean:         #1D5365;
+  --navy:          #1E3A5F;
+  --void:          #141828;
+  --obsidian:      #0E0E10;
+  --dusk:          #2E2840;
+  --midnight:      #161616;
+}
+
+// ─── Base ───────────────────────────────────────────────────────────────────
+* { box-sizing: border-box; }
+
+body {
+  background: linear-gradient(135deg, var(--obsidian) 0%, var(--void) 100%);
+  min-height: 100vh;
+  color: var(--ivory);
+  font-family: 'Inter', 'Roboto', 'Open Sans', sans-serif;
+  font-size: 15px;
+}
+
+// ─── Header ─────────────────────────────────────────────────────────────────
+.glass-header {
+  background: rgba(14, 14, 16, 0.75) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(192, 57, 75, 0.25) !important;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.4) !important;
+}
+
+// ─── Sidebar ────────────────────────────────────────────────────────────────
+.glass-sidebar {
+  background: var(--void) !important;
+  border-right: 1px solid rgba(42, 140, 140, 0.18) !important;
+}
+
+.sidebar-header {
+  padding: 20px 16px 12px;
+  border-bottom: 1px solid rgba(42, 140, 140, 0.15);
+
+  .sidebar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mist);
+    opacity: 0.6;
+  }
+
+  .sidebar-version {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    background: var(--crimson-dim);
+    color: var(--crimson);
+    border: 1px solid rgba(192, 57, 75, 0.3);
+    border-radius: 20px;
+    padding: 2px 8px;
+  }
+}
+
+.sidebar-section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mist);
+  opacity: 0.4;
+  padding: 16px 16px 6px;
+}
+
+// ─── Sidebar Links ──────────────────────────────────────────────────────────
+.cyber-link {
+  transition: all 0.25s ease;
+  margin: 3px 10px;
+  border-radius: 10px;
+  border-left: 3px solid transparent;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--crimson-dim) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  &:hover {
+    border-left-color: var(--crimson);
+    background: rgba(192, 57, 75, 0.08);
+
+    &::before { opacity: 1; }
+
+    .q-icon {
+      color: var(--teal) !important;
+      filter: drop-shadow(0 0 6px var(--teal));
+    }
+    .sidebar-label { color: var(--ivory) !important; }
+  }
+}
+
+.cyber-link .q-item__label--caption {
+  color: var(--mist) !important;
+  opacity: 0.6;
+  font-size: 11px !important;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.cyber-link .sidebar-label {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: rgba(232, 228, 217, 0.8) !important;
+  font-family: 'Inter', sans-serif;
+}
+
+.cyber-link .q-icon {
+  color: var(--ocean) !important;
+  transition: all 0.25s ease;
+}
+
+// ─── Logo ───────────────────────────────────────────────────────────────────
+.logo-title {
+  font-family: 'Poppins', sans-serif;
+  color: var(--ivory);
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  span.logo-accent {
+    color: var(--crimson);
+  }
+}
+
+.logo-svg-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+// ─── Login Button ───────────────────────────────────────────────────────────
+.glass-pill-btn {
+  border: 1px solid rgba(192, 57, 75, 0.45) !important;
+  border-radius: 50px !important;
+  color: var(--ivory) !important;
+  background: rgba(192, 57, 75, 0.1) !important;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  padding: 6px 20px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.5px;
+
+  &:hover {
+    background: rgba(192, 57, 75, 0.25) !important;
+    box-shadow: 0 0 18px var(--crimson-glow), inset 0 0 10px rgba(192, 57, 75, 0.1) !important;
+    border-color: var(--crimson) !important;
+  }
+}
+
+// ─── Chat Page ──────────────────────────────────────────────────────────────
+.chat-page {
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+.chat-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 24px 16px;
+}
+
+// ─── Welcome State ──────────────────────────────────────────────────────────
+.welcome-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 80px;
+
+  .welcome-logo {
+    animation: floatUp 3s ease-in-out infinite alternate;
+  }
+
+  .welcome-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--ivory);
+    margin-top: 20px;
+    text-align: center;
+
+    .accent { color: var(--crimson); }
+  }
+
+  .welcome-sub {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--mist);
+    opacity: 0.65;
+    margin-top: 8px;
+    text-align: center;
+  }
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-10px); }
+}
+
+// ─── Chat Bubbles ───────────────────────────────────────────────────────────
+.terminal-bubble-user,
+.terminal-bubble-ai {
+  padding: 14px 20px;
+  border-radius: 16px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  margin-bottom: 4px;
+  word-wrap: break-word;
+  animation: fadeSlideIn 0.35s ease forwards;
+}
+
+.terminal-bubble-user {
+  background: linear-gradient(135deg, rgba(192, 57, 75, 0.12), rgba(192, 57, 75, 0.04));
+  border: 1px solid rgba(192, 57, 75, 0.3);
+  color: var(--ivory);
+  border-bottom-right-radius: 4px;
+}
+
+.terminal-bubble-ai {
+  background: linear-gradient(135deg, rgba(42, 140, 140, 0.12), rgba(42, 140, 140, 0.03));
+  border: 1px solid rgba(42, 140, 140, 0.3);
+  color: var(--mist);
+  border-bottom-left-radius: 4px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(42, 140, 140, 0.08), transparent);
+    animation: shimmer 3.5s infinite;
+  }
+}
+
+.bubble-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+
+  &.user-label { color: var(--crimson); text-align: right; }
+  &.ai-label   { color: var(--teal); }
+}
+
+// ─── Status Dot ─────────────────────────────────────────────────────────────
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--teal);
+  margin-left: 6px;
+  vertical-align: middle;
+  animation: pulseDot 2s infinite;
+}
+
+// ─── Typing Indicator ───────────────────────────────────────────────────────
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, rgba(42, 140, 140, 0.1), rgba(42, 140, 140, 0.03));
+  border: 1px solid rgba(42, 140, 140, 0.25);
+  border-radius: 16px;
+  border-bottom-left-radius: 4px;
+  width: fit-content;
+  animation: fadeSlideIn 0.3s ease forwards;
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: bounce 1.3s infinite;
+
+    &:nth-child(2) { animation-delay: 0.18s; }
+    &:nth-child(3) { animation-delay: 0.36s; }
+  }
+}
+
+// ─── Input Area ─────────────────────────────────────────────────────────────
+.chat-input-area {
+  background: rgba(14, 14, 16, 0.85);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(42, 140, 140, 0.15);
+  padding: 12px 16px;
+}
+
+.chat-input-field {
+  .q-field__control {
+    background: rgba(20, 24, 40, 0.8) !important;
+    border-radius: 50px !important;
+    border: 1.5px solid rgba(42, 140, 140, 0.3) !important;
+    padding: 0 8px 0 20px !important;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    min-height: 50px !important;
+
+    &:before, &:after { display: none !important; }
+  }
+
+  &.q-field--focused .q-field__control {
+    border-color: var(--teal) !important;
+    box-shadow: 0 0 0 3px rgba(42, 140, 140, 0.12), 0 0 20px rgba(42, 140, 140, 0.1) !important;
+  }
+
+  &.scanning .q-field__control {
+    border-color: var(--crimson) !important;
+    animation: scanPulse 1.5s infinite;
+  }
+
+  .q-field__native {
+    color: var(--ivory) !important;
+    padding: 14px 0 !important;
+  }
+
+  .q-placeholder { color: rgba(168, 216, 216, 0.4) !important; }
+}
+
+.send-btn {
+  background: linear-gradient(135deg, var(--crimson), #a02030) !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+  width: 38px;
+  height: 38px;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(192, 57, 75, 0.4);
+  margin-right: 4px;
+
+  &:hover:not(:disabled) {
+    box-shadow: 0 4px 25px rgba(192, 57, 75, 0.7) !important;
+    transform: scale(1.08);
+  }
+  &:disabled { opacity: 0.4 !important; }
+}
+
+// ─── Animations ─────────────────────────────────────────────────────────────
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { left: -100%; }
+  60%  { left: 130%; }
+  100% { left: 130%; }
+}
+
+@keyframes scanPulse {
+  0%   { border-color: rgba(42,140,140,0.4) !important; }
+  50%  { border-color: var(--crimson) !important; box-shadow: 0 0 16px var(--crimson-glow) !important; }
+  100% { border-color: rgba(42,140,140,0.4) !important; }
+}
+
+@keyframes pulseDot {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(42, 140, 140, 0.7); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 5px rgba(42, 140, 140, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(42, 140, 140, 0); }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%           { transform: scale(1);   opacity: 1; }
+}
+
+@keyframes pulseRing {
+  0%   { transform: rotate(0deg) scale(1);    opacity: 0.8; }
+  50%  { transform: rotate(180deg) scale(1.05); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1);  opacity: 0.8; }
+}
+
+@keyframes logoGlow {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(192, 57, 75, 0.5)); }
+  50%       { filter: drop-shadow(0 0 14px rgba(192, 57, 75, 0.9)); }
+}
+
+// ─── Scrollbar ──────────────────────────────────────────────────────────────
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--obsidian); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--crimson), var(--teal));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--crimson); }
