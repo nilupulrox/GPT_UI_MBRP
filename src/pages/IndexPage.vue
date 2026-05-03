@@ -33,7 +33,7 @@
               </linearGradient>
             </defs>
           </svg>
-          <div class="welcome-title">What can I help you <span class="accent">research</span>?</div>
+          <div class="welcome-title">How can I help in your <span class="accent">research</span>?</div>
           <div class="welcome-sub">MBRP AI · Microbial Biotechnology Research Database</div>
         </div>
 
@@ -73,6 +73,14 @@
     <!-- ─── Input Area ─────────────────────────────────────────────────── -->
     <div class="chat-input-area full-width">
       <div class="chat-input-inner">
+      <!-- + Drive button -->
+        <q-btn
+          flat round
+          icon="add"
+          class="drive-btn q-mr-sm"
+          title="Add files to MBRP database"
+          @click="openDrive"
+        />
         <q-input
           v-model="newMessage"
           dark color="teal"
@@ -102,10 +110,8 @@ const newMessage = ref('')
 const chatArea = ref(null)
 const isProcessing = ref(false)
 
-// Welcome state: only the initial assistant message, no user messages yet
-const isWelcomeState = computed(() =>
-  chatStore.messages.length === 1 && chatStore.messages[0].role === 'assistant'
-)
+// Welcome state: no messages at all
+const isWelcomeState = computed(() => chatStore.messages.length === 0)
 
 const sendMessage = () => {
   if (newMessage.value.trim() === '' || isProcessing.value) return
@@ -133,5 +139,12 @@ const scrollToBottom = () => {
       chatArea.value.scrollTop = chatArea.value.scrollHeight
     }
   }, 50)
+}
+
+const openDrive = () => {
+  window.open(
+    'https://drive.google.com/drive/folders/1RbNhZ1Oww7W14FeFu-pucCJqINqyAqAP?usp=drive_link',
+    '_blank'
+  )
 }
 </script>

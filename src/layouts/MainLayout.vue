@@ -74,14 +74,20 @@
         <div class="sidebar-section-label" style="margin-top: 8px;">Recent Chats</div>
 
         <div class="history-list col scroll">
+          <!-- Current active session (live title) -->
+          <div v-if="chatStore.activeTitle" class="history-item history-item--active">
+            <q-icon name="chat_bubble" size="14px" class="history-icon" style="color: var(--teal) !important;" />
+            <span class="history-title" style="color: var(--ivory);">{{ chatStore.activeTitle }}</span>
+          </div>
+
           <!-- Empty state -->
-          <div v-if="chatStore.chatHistory.length === 0" class="history-empty">
+          <div v-else-if="chatStore.chatHistory.length === 0" class="history-empty">
             <q-icon name="chat_bubble_outline" size="22px"
               style="color: var(--teal); opacity: 0.35; display:block; margin: 0 auto 6px;"/>
             <span>No recent chats yet.<br/>Start a conversation!</span>
           </div>
 
-          <!-- History items -->
+          <!-- Saved history items -->
           <div
             v-for="session in chatStore.chatHistory"
             :key="session.id"
@@ -90,6 +96,14 @@
           >
             <q-icon name="chat_bubble_outline" size="14px" class="history-icon" />
             <span class="history-title">{{ session.title }}</span>
+            <q-btn
+              flat round dense
+              icon="close"
+              size="14px"
+              class="history-delete-btn"
+              @click.stop="chatStore.deleteSession(session.id)"
+              title="Delete chat"
+            />
           </div>
         </div>
 

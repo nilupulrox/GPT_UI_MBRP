@@ -127,7 +127,13 @@ body {
   border-left: 2px solid transparent;
   margin-bottom: 2px;
 
-  &:hover {
+  &--active {
+    border-left-color: var(--teal);
+    background: rgba(42, 140, 140, 0.07);
+    cursor: default;
+  }
+
+  &:hover:not(&--active) {
     background: rgba(192, 57, 75, 0.08);
     border-left-color: var(--crimson);
 
@@ -150,10 +156,48 @@ body {
   line-height: 1.45;
   transition: color 0.2s ease;
   overflow: hidden;
+  flex: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+// Delete button — always visible, prominent × on the right
+.history-delete-btn {
+  flex-shrink: 0;
+  opacity: 0.55;
+  color: var(--ivory) !important;
+  transition: opacity 0.18s ease, background 0.18s ease !important;
+  margin-left: auto;
+
+  &:hover {
+    opacity: 1;
+    color: var(--crimson) !important;
+    background: rgba(192, 57, 75, 0.18) !important;
+  }
+}
+
+.history-item:hover .history-delete-btn {
+  opacity: 1;
+}
+
+// ─── Drive (+) Button ────────────────────────────────────────────────────────
+.drive-btn {
+  color: var(--teal) !important;
+  border: 1.5px solid rgba(42, 140, 140, 0.35) !important;
+  background: rgba(42, 140, 140, 0.08) !important;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  transition: all 0.25s ease !important;
+
+  &:hover {
+    background: rgba(42, 140, 140, 0.2) !important;
+    border-color: var(--teal) !important;
+    box-shadow: 0 0 12px rgba(42, 140, 140, 0.35) !important;
+    transform: rotate(90deg);
+  }
 }
 
 // ─── Sidebar Links ──────────────────────────────────────────────────────────

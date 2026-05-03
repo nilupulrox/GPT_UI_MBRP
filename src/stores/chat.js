@@ -1,38 +1,34 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export const useChatStore = defineStore('chat', () => {
   // ─── Active session messages ────────────────────────────────────────────
-  const messages = ref([
-    {
-      role: 'assistant',
-      content: 'Welcome to the MBRP Research Paper Database. How can I assist you with microbial biotechnology today? I can help summarize papers, provide methodology details, or analyze data trends.'
-    }
-  ])
+  const messages = ref([])
+
+  // ─── Live title of the current active chat (first user message) ────────
+  const activeTitle = computed(() => {
+    const firstUser = messages.value.find(m => m.role === 'user')
+    if (!firstUser) return null
+    return firstUser.content.length > 48
+      ? firstUser.content.slice(0, 48) + '…'
+      : firstUser.content
+  })
 
   // ─── Chat history (list of saved sessions) ─────────────────────────────
   const chatHistory = ref([])
 
   // ─── Start a new chat session ───────────────────────────────────────────
   function newChat () {
-    // Save current conversation to history (use first user message as title)
-    const firstUser = messages.value.find(m => m.role === 'user')
-    if (firstUser) {
+    // Save current conversation to history if it has a user message
+    if (activeTitle.value) {
       chatHistory.value.unshift({
         id: Date.now(),
-        title: firstUser.content.length > 48
-          ? firstUser.content.slice(0, 48) + '…'
-          : firstUser.content,
+        title: activeTitle.value,
         snapshot: messages.value.slice()
       })
     }
-    // Reset to fresh session
-    messages.value = [
-      {
-        role: 'assistant',
-        content: 'Welcome to the MBRP Research Paper Database. How can I assist you with microbial biotechnology today?'
-      }
-    ]
+    // Reset to fresh empty session
+    messages.value = []
   }
 
   // ─── Restore a history session ──────────────────────────────────────────
@@ -40,5 +36,10 @@ export const useChatStore = defineStore('chat', () => {
     messages.value = session.snapshot.slice()
   }
 
-  return { messages, chatHistory, newChat, loadSession }
+  // ─── Delete a history session by id ─────────────────────────────────────
+  function deleteSession (id) {
+    chatHistory.value = chatHistory.value.filter(s => s.id !== id)
+  }
+
+  return { messages, chatHistory, activeTitle, newChat, loadSession, deleteSession }
 })
