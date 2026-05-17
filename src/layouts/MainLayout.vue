@@ -42,7 +42,12 @@
 
         <q-space />
 
-        <q-btn outline icon="fab fa-google" label="Sign in"
+        <div v-if="user" class="row items-center q-gutter-sm">
+          <div class="text-caption text-grey-5" style="font-family: 'Inter', sans-serif;">{{ user.email }}</div>
+          <q-btn outline icon="logout" label="Sign out" @click="handleSignOut"
+            class="glass-pill-btn" unelevated no-caps />
+        </div>
+        <q-btn v-else outline icon="login" label="Sign in" to="/login"
           class="glass-pill-btn" unelevated no-caps />
       </q-toolbar>
     </q-header>
@@ -118,11 +123,38 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import EssentialLink from 'components/EssentialLink.vue'
 import { useChatStore } from 'stores/chat'
+import { supabase } from 'boot/supabase'
+import { useQuasar } from 'quasar'
 
 const chatStore = useChatStore()
+const router = useRouter()
+const $q = useQuasar()
+
+const user = ref(null)
+
+onMounted(() => {
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    user.value = session?.user || null
+  })
+
+  supabase.auth.onAuthStateChange((_event, session) => {
+    user.value = session?.user || null
+  })
+})
+
+const handleSignOut = async () => {
+  const { error } = await supabase.auth.signOut()
+  if (error) {
+    $q.notify({ color: 'negative', message: error.message, icon: 'report_problem' })
+  } else {
+    router.push('/login')
+  }
+}
+
 
 const linksList = [
   {
